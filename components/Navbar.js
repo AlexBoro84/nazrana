@@ -58,7 +58,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-white py-4 border-b-2 shadow-sm">
+    <nav className="bg-white py-4 border-b-2 shadow-sm sticky top-0 z-20">
         <div className="flex lg:w-9/12 md:w-11/12 w-10/12 mx-auto flex-wrap justify-between items-center">
             <div className='flex'>
               <Link href="/" >
