@@ -16,7 +16,7 @@ export default function Home({dummyData}) {
 
 
   return (
-    <div>
+    <>
         <Navbar />
         <Hero onClickBrowse={handleOnClickBrowse}/>
         <section ref={productsRef}>
@@ -27,7 +27,7 @@ export default function Home({dummyData}) {
         <div className='md:-mt-40 mt-0'>
           <Footer/>  
         </div>
-    </div>
+    </>
   )
 }
 

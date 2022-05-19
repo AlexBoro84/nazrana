@@ -7,7 +7,7 @@ export const axiosWrapper = async(endpoint, requestMethod, data) => {
     const res = await axios({
         method: requestMethod,
         url: endpoint,
-        baseURL: 'http://api.thenazrana.in/',
+        baseURL: 'https://api.thenazrana.in/',
         data: data ? data : null,
         body: body
       });

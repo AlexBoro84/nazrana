@@ -1,5 +1,4 @@
 import Navbar from '../../components/Navbar'
-import Image from 'next/image'
 import ButtonBlue from '../../components/buttons/ButtonBlue'
 import {BsShareFill, BsFillHeartFill} from 'react-icons/bs'
 import Footer from '../../components/Footer'
@@ -27,7 +26,7 @@ const Product = ({product}) => {
                         </p>
                     </div>
                     <div className='flex lg:flex-row md:flex-col flex-col lg:items-center my-6'>
-                        <select className="block lg:mr-6 mr-0 lg:mb-0 mb-6 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                        <select className="block bg-none lg:mr-6 mr-0 lg:mb-0 mb-6 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-500" >
                             <option>Quantity 1</option>
                             <option>Quantity 2</option>
                             <option>Quantity 3</option>

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Footer from '../../components/Footer'
+import { toast } from 'react-toastify'
 
 const SignUp = () => {
 
@@ -14,20 +15,31 @@ const SignUp = () => {
  const [name, setName] = useState('')
  const [password, setPassword] = useState('')
 
+ 
+
  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const res = await axios.post('http://api.thenazrana.in/register', {name, userName: username, email, password}, {headers: {'Content-Type': 'application/json'}})
-    console.log(res.data)
-    if(res.data.status === true){
-        router.push('/login')
+    if(!username || !email || !name || !password){
+        toast.error('All fields are required')    
+    }else{
+        try {
+            const res = await axios.post('http://api.thenazrana.in/register', {name, userName: username, email, password}, {headers: {'Content-Type': 'application/json'}})
+            toast.error(res.data.msg)
+            if(res.data.status === true){
+                toast.success(res.data.msg)
+                router.push('/login')
+            }
+        } catch (error) {
+            toast.error('Server Error')
+        }
     }
  }
 
 
   return (
       <div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex md:items-center mt-20 justify-center md:h-screen md:my-0 my-28">
             <div className="md:shadow-lg shadow-none md:py-12 md:px-20 px-7 lg:w-5/12 md:w-9/12 w-full">
                 <div className='flex flex-col items-center'>
                     <Link href='/'>

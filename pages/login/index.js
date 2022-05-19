@@ -4,6 +4,7 @@ import {useState} from 'react'
 import axios from 'axios'
 import Footer from '../../components/Footer'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 const Login = () => {
 
@@ -13,15 +14,27 @@ const Login = () => {
 
  const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await axios.post('http://api.thenazrana.in/login', {userName: username, password}, {headers: {'Content-Type': 'application/json'}})
-    if(res.data.status === true){
-        router.push('/')
+    if(!username || !password){
+        toast.error('All fields are required')    
+    }else{
+        try {
+            const res = await axios.post('http://api.thenazrana.in/login', {userName: username, password}, {headers: {'Content-Type': 'application/json'}})
+            if(res.data){
+                toast.error(res.data.msg)
+            }
+            if(res.data.status === true){
+                router.push('/')
+            }
+        } catch (error) {
+            toast.error('Server Error')    
+        }
     }
- }
+}
+
 
   return (
       <>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center md:h-screen md:my-0 my-28">
             <div className="md:shadow-lg shadow-none md:py-12 md:px-20 px-7 lg:w-5/12 md:w-9/12 w-full">
                 <div className='flex flex-col items-center'>
                     <Link href='/'>
@@ -47,10 +60,6 @@ const Login = () => {
                             <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"/>
                             <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900"> Remember me </label>
                         </div>
-
-                        <div className="text-sm">
-                            <Link href="/password_reset" className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"> Forgot your password? </Link>
-                        </div>
                     </div>
                     <button onClick={(e) => handleSubmit(e)} className="mt-8 w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Sign in
@@ -59,7 +68,6 @@ const Login = () => {
                     <p className='text-sm text-center mt-4'>
                         Dont have an account? <Link href='/signup'><span className='cursor-pointer text-indigo-600'>create a new account</span></Link>
                     </p>
-                    
                 </form>
             </div>
         </div>
