@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios'
+import {axiosWrapper} from '../utils/axiosWrapper'
+
 
 const productsSlice = createSlice({
   name: "products",
@@ -73,7 +74,7 @@ export function loadMoreSearchProducts(query, nextPage) {
 
 
 const getProductsRequest = async (query, nextPage) => {
-  const body = {
+  const data = {
     "query": query ? query : null,
     "category": "string",
     "discountRanges": [
@@ -90,6 +91,6 @@ const getProductsRequest = async (query, nextPage) => {
     ],
     "page": nextPage ? nextPage : 0
 }
-  const res =  await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/Search`, body, {headers: {'Content-Type': 'application/json'}})
+  const res = await axiosWrapper('Search', 'post', data)
   return res
 }

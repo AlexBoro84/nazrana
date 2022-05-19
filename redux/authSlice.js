@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios'
-
+import {axiosWrapper} from '../utils/axiosWrapper'
 
 const authSlice = createSlice({
   name: "auth",
@@ -20,7 +19,7 @@ const authSlice = createSlice({
 
 export function checkAuth(){
   return async dispatch => {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Auth`)
+    const res = await axiosWrapper('Auth', 'get')
   }
 
 }

@@ -5,22 +5,24 @@ import CartItems from '../../components/CartItems'
 import {useRouter} from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import {getCartItems} from '../../redux/cartSlice'
-import axios from 'axios'
+import { axiosWrapper } from '../../utils/axiosWrapper'
 
 const Cart = () => {
 
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const {loading, cartItems} = useSelector((state) => state.cart)
+  const {cartItems} = useSelector((state) => state.cart)
   
   useEffect(() => {
     dispatch(getCartItems())
   },[])
 
   const handleCheckoutClick = async() => {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/Order`, {}, {headers: {'Content-Type': 'application/json'}})
-    router.push('/checkout')
+    const res =  await axiosWrapper('/Order', 'post', {})
+    if(res.data.staus === true){
+      router.push('/checkout')
+    }
   }
 
   return (

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios'
+import {axiosWrapper} from '../utils/axiosWrapper'
 import { toast } from 'react-toastify';
 
 const cartSlice = createSlice({
@@ -54,13 +54,14 @@ export default cartSlice.reducer;
 export function addCartItems(id, qty) {
   return async dispatch => {
     try {
-        const body = {
+        const data = {
             "productId": id,
             "quantity": qty
         }
-        const res =  await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/Cart`, body, {headers: {'Content-Type': 'application/json'}})
-        toast.success(res.data.msg);
-        dispatch(addToCart(res.data));
+  
+      const res = await axiosWrapper('Cart', 'post', data)
+      toast.success(res.data.msg);
+      dispatch(addToCart(res.data));
     } catch (error) {
       console.log(error)
       dispatch(addToCartFail())
@@ -72,7 +73,7 @@ export function getCartItems() {
   return async dispatch => {
     try {
         dispatch(getCartItemsLoading())
-        const res =  await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Cart`, {headers: {'Content-Type': 'application/json'}})        
+        const res = await axiosWrapper('Cart', 'get')
         dispatch(getAllCartItems(res.data))
     } catch (error) {
       console.log(error)
@@ -85,7 +86,8 @@ export function deleteCartItem(id) {
   return async dispatch => {
     try {
         dispatch(deleteFromCartLoading())
-        const res = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/Cart`, {id}, {headers: {'Content-Type': 'application/json'}})
+        const res = await axiosWrapper('Cart', {id}, 'delete')
+        toast.success(res.data.msg);
         dispatch(deleteFromCart(id))
     } catch (error) {
       console.log(error)
