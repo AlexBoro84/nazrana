@@ -53,7 +53,7 @@ const Products = () => {
                 </div>
               </form>
             <div className='flex mt-4'>
-                <select id="countries" onChange={(e) => setFilter(e.target.value)} className=" w-40 border border-gray-300 text-gray-900 text-sm rounded-sm focus:outline-none bg-none block p-2" >
+                <select id="countries" onChange={(e) => setFilter(e.target.value)} className=" w-40 border border-gray-300 text-gray-900 text-sm rounded-sm focus:outline-none bg-white block p-2" >
                     <option defaultValue="" disabled hidden>Filter</option>
                     <option value="min">Price: Low To High</option>
                     <option value="max">Price: High To Low</option>
