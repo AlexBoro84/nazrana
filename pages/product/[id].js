@@ -3,21 +3,24 @@ import Image from 'next/image'
 import ButtonBlue from '../../components/buttons/ButtonBlue'
 import {BsShareFill, BsFillHeartFill} from 'react-icons/bs'
 import Footer from '../../components/Footer'
+import axios from 'axios'
 
-const Product = () => {
+const Product = ({product}) => {
+
+
   return (
-    <main>
+    <>
         <Navbar />
         <div className='flex md:flex-row flex-col lg:w-9/12 md:w-11/12 w-10/12 mx-auto my-10'>
-            <img  src='/img/LS002Black.jpg' className='w-full h-auto'/>
+            <img  src={product.medias[0]} className='w-full h-auto'/>
             <div className='flex flex-col mt-10'>
                 <div className='md:w-11/12 lg:w-10/12 w-full self-end'>
                     <div className='text-2xl font-bold'>
-                        <h3 className='text-gray-700'>Leather Sling - Cammel</h3>
-                        <h3 className='text-[#384aeb] my-4'>₹ 1850</h3>
+                        <h3 className='text-gray-700'>{product.title}</h3>
+                        <h3 className='text-[#384aeb] my-4'>₹ {product.mrp}</h3>
                     </div>
                     <div className='text-gray-500'>
-                        <p>Category : <span className='ml-4'>Premium Leather Series</span></p>
+                        <p>Category : <span className='ml-4'>{product.brand}</span></p>
                         <p>Availibility : <span className='ml-4'>In Stock</span></p>
                         <p className='md:mt-10 md:w-10/12 w-full mt-6'>
                             Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for something that can make your interior look awesome, and at the same time give you the pleasant warm feeling during the winter.
@@ -43,8 +46,22 @@ const Product = () => {
             </div>
         </div>
         <Footer/>
-    </main>
+    </>
   )
+}
+
+export async function getServerSideProps(ctx) {
+    
+    const res = await axios.get(`http://api.thenazrana.in/${ctx.query.id}`, {headers: {'Content-Type': 'application/json'}})
+    
+    if(!res.data){
+        return { 
+            notFound: true
+          }
+    }
+    return {
+      props: {product: res.data},
+  }
 }
 
 export default Product

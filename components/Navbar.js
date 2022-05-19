@@ -12,9 +12,18 @@ const Navbar = () => {
   const router = useRouter()
   
   const [showMenu, setShowMenu] = useState(false)
+  const [search, setSearch] = useState('')
 
   const handleCheckoutClick = () => {
     router.push('/checkout')
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    router.push({
+      pathname: '/products',
+      query: search ? { s: search } : null
+    })
   }
 
   const MobileNavItems = () => {
@@ -60,8 +69,8 @@ const Navbar = () => {
 
               <form className='lg:w-72 md:w-64 md:block hidden'>   
                 <div className="ml-8 relative">
-                    <input type="search" className="block w-full py-3 pr-3 pl-6 focus:outline-none text-sm text-gray-900 rounded-full border border-gray-500" placeholder="Search..."/>
-                    <button className="absolute right-2.5 bottom-2.5 focus:outline-none text-lg rounded-lg px-4 py-1 text-gray-700">
+                    <input type="search" className="block w-full py-3 pr-3 pl-6 focus:outline-none text-sm text-gray-900 rounded-full border border-gray-500" placeholder="Search..." value={search} onChange={(e) => setSearch(e.target.value)}/>
+                    <button  className="absolute right-2.5 bottom-2.5 focus:outline-none text-lg rounded-lg px-4 py-1 text-gray-700" onClick={handleSearch}>
                       <FiSearch/>
                     </button>
                 </div>

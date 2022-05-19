@@ -2,7 +2,7 @@ import ButtonBlue from '../components/buttons/ButtonBlue'
 
 const NewsLetter = () => {
   return (
-    <>
+    <section>
          <div className='md:w-9/12 md:p-0 md:px-6 px-0 w-10/12 mx-auto md:shadow-xl shadow-none md:h-96 h-full md:mb-20 flex flex-col justify-center items-center relative z-10 bg-white rounded-md md:mt-24 my-10'>
                 <h2 className="font-bold md:text-4xl text-3xl">GET UPDATE FROM ANYWHERE</h2>
                 <p className='text-gray-500 mt-4'>Bearing Void gathering light light his eavening unto dont afraid</p>
@@ -13,7 +13,7 @@ const NewsLetter = () => {
                   </div>
                 </div>
           </div>
-    </>
+    </section>
   )
 }
 

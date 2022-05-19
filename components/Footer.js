@@ -9,7 +9,7 @@ const Footer = () => {
       <div className='md:w-9/12 w-10/12 mx-auto md:mt-10 mt-0 flex md:flex-row flex-col justify-between text-white'>
         <div className='md:w-64 w-full'>
           <h2 className='text-4xl font-semibold'>Our Mission</h2>
-          <p className='text-gray-400 mt-4 text-normal'>Our Mission The Nazrana is about showcasing affection, care, and gratitude for the institute which had played a vital role in one's learning curve. The store is an effort to bring those memories back through select souvenir products. The products can be used as a unique gifting solution for inspiring others and showing your eternal bond with your alma-mate.</p>
+          <p className='text-gray-400 mt-4 text-normal'>Our Mission The Nazrana is about showcasing affection, care, and gratitude for the institute which had played a vital role in ones learning curve. The store is an effort to bring those memories back through select souvenir products. The products can be used as a unique gifting solution for inspiring others and showing your eternal bond with your alma-mate.</p>
         </div>
         <div>
           <h4 className='text-xl font-semibold md:mt-0 mt-6'>Quick Links</h4>

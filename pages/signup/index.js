@@ -20,13 +20,13 @@ const SignUp = () => {
     const res = await axios.post('http://api.thenazrana.in/register', {name, userName: username, email, password}, {headers: {'Content-Type': 'application/json'}})
     console.log(res.data)
     if(res.data.status === true){
-        router.push('/signin')
+        router.push('/login')
     }
  }
 
 
   return (
-      <main>
+      <div>
         <div className="flex items-center justify-center h-screen">
             <div className="md:shadow-lg shadow-none md:py-12 md:px-20 px-7 lg:w-5/12 md:w-9/12 w-full">
                 <div className='flex flex-col items-center'>
@@ -64,7 +64,7 @@ const SignUp = () => {
 
                     </div>
                     <button onClick={handleSubmit} className="mt-8 w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Sign in
+                        Sign up
                     </button>
                 
                     <p className='text-sm text-center mt-4'>
@@ -74,7 +74,7 @@ const SignUp = () => {
             </div>
         </div>
         <Footer/>
-      </main>
+      </div>
   )
 }
 

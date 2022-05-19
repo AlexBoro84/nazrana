@@ -3,20 +3,24 @@ import Link from 'next/link'
 import {useState} from 'react'
 import axios from 'axios'
 import Footer from '../../components/Footer'
+import { useRouter } from 'next/router'
 
 const Login = () => {
 
+ const router = useRouter()
  const [username, setUsername] = useState('')
  const [password, setPassword] = useState('')
 
  const handleSubmit = async (e) => {
     e.preventDefault()
     const res = await axios.post('http://api.thenazrana.in/login', {userName: username, password}, {headers: {'Content-Type': 'application/json'}})
-    console.log(res.data)
+    if(res.data.status === true){
+        router.push('/')
+    }
  }
 
   return (
-      <main>
+      <>
         <div className="flex items-center justify-center h-screen">
             <div className="md:shadow-lg shadow-none md:py-12 md:px-20 px-7 lg:w-5/12 md:w-9/12 w-full">
                 <div className='flex flex-col items-center'>
@@ -60,7 +64,7 @@ const Login = () => {
             </div>
         </div>
         <Footer/>
-      </main>
+      </>
   )
 }
 

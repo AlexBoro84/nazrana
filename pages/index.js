@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
@@ -7,11 +8,20 @@ import Products from '../components/Products'
 
 export default function Home({dummyData}) {
 
+  const productsRef = useRef(null)
+
+  const handleOnClickBrowse = () => {
+    window.scrollTo({ behavior: 'smooth', top: productsRef.current.offsetTop })
+  }
+
+
   return (
     <div>
         <Navbar />
-        <Hero/>
-        <Products dummyData={dummyData}/>
+        <Hero onClickBrowse={handleOnClickBrowse}/>
+        <section ref={productsRef}>
+          <Products dummyData={dummyData}/>
+        </section>
         <Offer/>
         <NewsLetter/>
         <div className='md:-mt-40 mt-0'>
@@ -23,14 +33,14 @@ export default function Home({dummyData}) {
 
 Home.getInitialProps = async (ctx) => {
   const dummyData = [
-    {series: 'Premium Leather Series', name: 'Travel Kit Classic - Brown', price: '₹3950', image: 'img/TK1Brown.jpg'},
-    {series: 'Premium Leather Series', name: 'Premium Leather Stroller - Small - Brown', price: '₹ 10500', image: 'img/SLBBrown.jpg'},
-    {series: 'Premium Leather Series', name: 'Leather Sling - Black', price: '₹2550', image: 'img/LS003Black.jpg'},
-    {series: 'Premium Leather Series', name: 'Premium Leather Stroller - Medium - Black', price: '₹12500', image: 'img/MLBBlack.jpg'},
-    {series: 'Premium Leather Series', name: 'Leather Sling - Blue', price: '₹1850', image: 'img/LS005Blue.jpg'},
-    {series: 'Premium Leather Series', name: 'Leather Sling - Black', price: '₹1850', image: 'img/LS005Black.jpg'},
-    {series: 'Premium Leather Series', name: 'Leather Sling - Black', price: '₹2650', image: 'img/Ls002Black.jpg'},
-    {series: 'Premium Leather Series', name: 'Travel Kit - DarkBrown', price: '₹4300', image: 'img/TKDarkBrown.jpg'},
+    {id: 1, series: 'The Nazrana', name: 'Leather Sling - Black', price: '₹2650', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS002Black.jpg'},
+    {id: 2, series: 'The Nazrana', name: 'Leather Sling - Blue', price: '₹ 10500', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS002Blue.jpg'},
+    {id: 3, series: 'The Nazrana', name: 'Leather Sling - Cammel', price: '₹2550', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS002Cammel.jpg'},
+    {id: 4, series: 'The Nazrana', name: 'Leather Sling - Brown', price: '₹12500', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS002Brown.jpg'},
+    {id: 5, series: 'The Nazrana', name: 'Leather Sling - Maroon', price: '₹1850', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS001Maroon.jpg'},
+    {id: 6, series: 'The Nazrana', name: 'Leather Sling - Black', price: '₹1850', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS001Black.jpg'},
+    {id: 7, series: 'The Nazrana', name: 'Leather Sling - Blue', price: '₹2650', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS001Brown.jpg'},
+    {id: 8, series: 'The Nazrana', name: 'Leather Sling - Brown', price: '₹4300', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS001DarkBrown.jpg'},
   ]
 
   return {dummyData}

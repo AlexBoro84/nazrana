@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 
 
-const cartSlice = createSlice({
+const authSlice = createSlice({
   name: "auth",
   initialState: {
     authenticated: false,
@@ -18,14 +18,13 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, reset } = cartSlice.actions;
-export default cartSlice.reducer;
-
-export const checkAuth = () => async dispatch => {
-  // dispatch(usersLoading());
-  const res =  await axios.get(`http://api.thenazrana.in/verify`,  {headers: {'Content-Type': 'application/json'}})
-
-  console.log(res.data)
-  // dispatch(usersReceived(response.data));
+export function checkAuth(){
+  return async dispatch => {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/Auth`)
+  }
 
 }
+
+export const { addProduct, reset } = authSlice.actions;
+export default authSlice.reducer;
+

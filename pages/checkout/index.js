@@ -5,7 +5,7 @@ import {IoMdArrowBack} from 'react-icons/io'
 export default function Checkout(){
   return (
     <>
-      <main>
+      <div>
         <div className="flex md:flex-row flex-col">
 
           <div className="md:w-6/12 w-full">
@@ -73,7 +73,7 @@ export default function Checkout(){
             </div>
           </div>
         </div>
-      </main>
+      </div>
       <Footer/>
     </>
   )
