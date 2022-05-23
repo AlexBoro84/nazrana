@@ -7,7 +7,6 @@ const cartSlice = createSlice({
   initialState: {
     cartItems: [],
     loading: false,
-    msg: null,
     error: null,
   },
   reducers: {
@@ -36,14 +35,14 @@ const cartSlice = createSlice({
       state.loading = false
     },
     deleteFromCartFail: (state, action) => {
-        state.error = true
+      state.loading = false
     },   
 
     addToCart: (state, {payload}) => {
-      state.msg = payload.msg
+      state.loading = false
     },
     addToCartFail: (state, action) => {
-        state.success = false
+        state.loading = false
     }   
   },
 });
@@ -53,6 +52,11 @@ export default cartSlice.reducer;
 
 export function addCartItems(id, qty) {
   return async dispatch => {
+
+    console.log(qty)
+
+    dispatch(getCartItemsLoading())
+
     try {
         const data = {
             "productId": id,
@@ -86,7 +90,7 @@ export function deleteCartItem(id) {
   return async dispatch => {
     try {
         dispatch(deleteFromCartLoading())
-        const res = await axiosWrapper('Cart', 'delete', {id})
+        const res = await axiosWrapper(`Cart/Remove/${id}`, 'post', {})
         toast.success(res.data.msg);
         dispatch(deleteFromCart(id))
     } catch (error) {

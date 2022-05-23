@@ -42,7 +42,6 @@ Home.getInitialProps = async (ctx) => {
     {id: 7, series: 'The Nazrana', name: 'Leather Sling - Blue', price: '₹2650', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS001Brown.jpg'},
     {id: 8, series: 'The Nazrana', name: 'Leather Sling - Brown', price: '₹4300', image: 'https://ik.imagekit.io/3jw2q3z4w7h/LS001DarkBrown.jpg'},
   ]
-
   return {dummyData}
 
 } 

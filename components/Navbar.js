@@ -6,6 +6,8 @@ import {BsPinMap} from 'react-icons/bs'
 import {AiOutlineShopping, AiOutlineLogin} from 'react-icons/ai'
 import {FiSearch} from 'react-icons/fi'
 import { useRouter } from 'next/router'
+import { axiosWrapper } from '../utils/axiosWrapper'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
 
@@ -14,9 +16,6 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
   const [search, setSearch] = useState('')
 
-  const handleCheckoutClick = () => {
-    router.push('/checkout')
-  }
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -55,6 +54,17 @@ const Navbar = () => {
         </li>
       </ul>
     ) 
+  }
+
+  
+  const handleCheckoutClick = async() => {
+    const res =  await axiosWrapper('/Order', 'post', {})
+    if(res.data.status === true){
+      router.push(`/checkout/${res.data.data.id}`)
+    }else{
+      toast.success('Cart is empty')
+      router.push('/')
+    }
   }
 
   return (

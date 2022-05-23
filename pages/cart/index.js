@@ -8,10 +8,8 @@ import {getCartItems} from '../../redux/cartSlice'
 import { axiosWrapper } from '../../utils/axiosWrapper'
 
 const Cart = () => {
-
   const router = useRouter()
   const dispatch = useDispatch()
-
   const {cartItems} = useSelector((state) => state.cart)
   
   useEffect(() => {
@@ -20,9 +18,18 @@ const Cart = () => {
 
   const handleCheckoutClick = async() => {
     const res =  await axiosWrapper('/Order', 'post', {})
-    if(res.data.staus === true){
-      router.push('/checkout')
+    if(res.data.status === true){
+      router.push(`/checkout/${res.data.data.id}`)
     }
+  }
+
+  const getSubtotal = (cartItems) => {
+    if(Object.entries(cartItems).length === 0) return 0
+    let total = 0
+    Object.entries(cartItems).map((item) => {
+      total += (item[1].quantity * item[1].product.price)
+    })
+    return `₹ ${total}`
   }
 
   return (
@@ -34,7 +41,7 @@ const Cart = () => {
             <div className='flex md:flex-row flex-col mt-6 justify-between'>
               <div className='md:mr-4 mr-0 md:w-6/12 w-full'>
                   {cartItems && Object.keys(cartItems).map(item => (
-                    <CartItems key={cartItems[item].id} image={cartItems[item].product.image} id={cartItems[item].id} name={cartItems[item].product.title} price={cartItems[item].product.price} />
+                    <CartItems key={cartItems[item].id} quantity={cartItems[item].quantity} productId={cartItems[item].product.id} image={cartItems[item].product.image} id={cartItems[item].id} name={cartItems[item].product.title} price={cartItems[item].product.price} />
                   ))}
               </div>
 
@@ -44,7 +51,7 @@ const Cart = () => {
                   <div className='mt-6'>
                     <div className='flex justify-between'>
                       <p className='font-semibold text-gray-700'>Subtotal</p>
-                      <p className='font-semibold text-gray-700'>₹ 4000</p>
+                      <p className='font-semibold text-gray-700'>{getSubtotal(cartItems)}</p>
                     </div>
                     <div className='flex justify-between my-4'>
                       <p className='font-semibold text-gray-700'>Discount</p>
@@ -53,19 +60,22 @@ const Cart = () => {
                   </div>
                   <div className='flex justify-between mb-6 lg:mt-32 mt-14'>
                     <p className='font-semibold text-lg text-gray-700'>Total Price</p>
-                    <p className='font-semibold text-lg text-gray-700'>₹4000</p>
+                    <p className='font-semibold text-lg text-gray-700'>{getSubtotal(cartItems)}</p>
                   </div>
-                   {Object.keys(cartItems).length !== 0 && (
+                   {Object.keys(cartItems).length === 0 ? (
+                     <button disabled className="px-6 w-full py-3 text-sm text-white bg-indigo-500 opacity-60" onClick={handleCheckoutClick}>
+                      Cart is empty
+                    </button>
+                   ) : (
                     <button className="px-6  w-full py-3 text-sm text-white bg-indigo-500 hover:bg-indigo-600" onClick={handleCheckoutClick}>
                       Proceed to Checkout
                     </button>
                    )}
                 </div>  
-               
               </div>
             </div>
           </div>
-      </div>
+        </div>
       <Footer/>
     </>
   )

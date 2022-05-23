@@ -25,6 +25,7 @@ const Products = () => {
   },[query])
 
 
+
   const handleShowMore = () => {
     dispatch(loadMoreSearchProducts(query.s, nextPage))  
   } 
@@ -62,7 +63,7 @@ const Products = () => {
             </div>  
             <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 mt-10 md:gap-10 gap-4 mb-14'>
                 {products && products.map((product, i) => (
-                  <Product key={`${product.title}-${i}`} id={product.id} series={product.brand} name={product.title}  price={product.price} image={product.image}/>   
+                  <Product key={`${product.title}-${i}`} id={product.id} series={product.brand} name={product.title} price={product.price} image={product.image}/>   
                 ))}
             </div>
             {hasMore && (
