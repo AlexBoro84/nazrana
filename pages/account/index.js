@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import Navbar from '../../components/Navbar'
 import { axiosWrapper } from '../../utils/axiosWrapper'
 
-const index = () => {
+const Account = () => {
 
   useEffect(() => {
     const getOrders = async () => {
@@ -47,4 +47,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Account
