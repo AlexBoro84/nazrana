@@ -4,16 +4,15 @@ import { axiosWrapper } from '../../utils/axiosWrapper'
 
 const index = () => {
 
-  const getOrders = async () => {
+  useEffect(() => {
+    const getOrders = async () => {
       try {
         const res = await axiosWrapper('Account/orders', 'get')
         // console.log(res.data)  
       } catch (error) {
         console.log(error)  
       }
-  }
-
-  useEffect(() => {
+    }
     getOrders()
   }, [])
 
