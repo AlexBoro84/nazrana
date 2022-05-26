@@ -21,7 +21,6 @@ const loadScript = () => {
   })
 }
 
-
 export default function Checkout(){
   const router = useRouter()
 
@@ -33,13 +32,10 @@ export default function Checkout(){
 
   const [name, setName] = useState(null)
   const [email, setEmail] = useState(null)
-  const [address, setAddress] = useState(null)
   const [number, setNumber] = useState(null)
-  const [city, setCity] = useState(null)
-  const [state, setState] = useState(null)
-  const [zip, setZip] = useState(null)
-  const [country, setCountry] = useState(null)
-
+  const [landmark, setLandmark] = useState(null)
+  const [street, setStreet] = useState(null)
+  const [building, setBuilding] = useState(null)
 
   const displayRazorpay = async () => {
     const res = await loadScript()
@@ -54,33 +50,32 @@ export default function Checkout(){
         "name": "The Nazrana",
         "description": "Thank you for your test donation",
         "image": "https://www.thenazrana.in/logo.png",
-        "order_id": "",
-        "handler": function (response) {
+        "handler": async function (response) {
           console.log(response);
-          data = {
-            address: {
-              name: name,
-              email: email,
-              number: number,
-              city: city,
-              zip: zip,
-              country: country,
-              state:state
+          const data = {
+              Name: name,
+              Email: email,
+              Mobile: number,
+              Street: street,
+              Landmark: landmark,
+              Building: building
+          }
+          try {
+            const res = await axiosWrapper(`/Order/Confirm/${router.query.id}/${response.razorpay_payment_id}`, 'post', data)
+            console.log(res.data)
+            if(res.data.status === true){
+              toast.success('Payment Successful')
+              router.push('/')
             }
+          } catch (error) {
+            toast.error('Payment Failed')
+            console.log(error)  
           }
-          // const res = await axiosWrapper(`/Order/Confirm/${response.razorpay_payment_id}`)
-          if(res.data.status === true){
-            toast.success('Payment Successful')
-            router.push('/')
-          }
-
         },
         "prefill": {
           "name": name, 
           "email": email,
-        },
-        "notes": {
-          "address": address
+          "contact": number
         },
       }
       const paymentObject = new window.Razorpay(options)
@@ -96,6 +91,7 @@ export default function Checkout(){
       setTotal(res.data.total)
       setDiscount(res.data.discount)
       setRazorKey(res.data.payment.key)
+      setRazorKey(res.data.payment.key)
     }
   }
 
@@ -103,24 +99,23 @@ export default function Checkout(){
     getOrder()
   }, [router.query.id])
 
-
-
-
   const handlePayment = (e) => {
     e.preventDefault()
-    if(!name || !email || !state || !country || !city || !zip || !address || !number) return toast.error('All fields are required')
-    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email) === false) return toast.error('Please enter a valid email')
-    if(/^\d{9}$/.test(number) == false) return toast.error('Please enter a valid mobile number') 
-    if(/(^\d{6}$)|(^\d{5}-\d{4}$)/.test(zip) === false) return toast.error('Please enter a valid zip') 
-    displayRazorpay()
+    if(!name) return toast.error('Name is required')
+    if(!number) return toast.error('Phone Number is required')
+    if(!street) return toast.error('Street is required')
+    if(!landmark) return toast.error('Landmark is required')
+    if(!building) return toast.error('Building is required')
 
+    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email) === false) return toast.error('Please enter a valid email')
+    if(/^\d{10}$/.test(number) == false) return toast.error('Please enter a valid mobile number') 
+    displayRazorpay()
   }
 
   return (
     <>
       <div>
         <div className="flex md:flex-row flex-col">
-
           <div className="md:w-6/12 w-full">
             <div className="lg:w-8/12 w-10/12  mx-auto my-10">
               <Link href='/cart'>
@@ -131,24 +126,11 @@ export default function Checkout(){
 
               <form className="my-6">
                     <input type="text" name="name" onChange={(e) => setName(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none mb-5" placeholder="Full Name" required />
-
-                    <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} className="placeholder:text-gray-600 block py-3 mb-5 px-4 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Email" required />
-
-                    <input type="text" name="address" onChange={(e) => setAddress(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Address" required />
-
+                    <input type="email" name="email" onChange={(e) => setEmail(e.target.value)} className="placeholder:text-gray-600 block py-3 mb-5 px-4 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Email" />
                     <input type="number" name="mobile"onChange={(e) => setNumber(e.target.value)}  className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Mobile Number" required />
-
-                    <div className="flex">
-                      <input type="text" name="city" onChange={(e) => setCity(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none mr-2" placeholder="City" required />
-                      <input type="text" name="state" onChange={(e) => setState(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none ml-2" placeholder="State" required />
-                    </div>
-
-                    <div className="flex">
-                      <input type="number" name="zip" onChange={(e) => setZip(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none mr-2" placeholder="Zip" required />
-                      <input type="text" name="country" onChange={(e) => setCountry(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none ml-2" placeholder="Country" required />
-                    </div>
-                
-
+                    <input type="text" name="street" onChange={(e) => setStreet(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Street" required />
+                    <input type="text" name="landmark" onChange={(e) => setLandmark(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Landmark" required />                 
+                    <input type="text" name="building" onChange={(e) => setBuilding(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 mb-5 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none " placeholder="Building" required />                  
                     <button className="px-6  mt-10  w-full py-3 text-sm text-white bg-indigo-500 hover:bg-indigo-600" onClick={handlePayment}>
                         Proceed to Payment
                     </button>
@@ -164,8 +146,7 @@ export default function Checkout(){
                 Object.values(items).map((item, id) => (
                   <ShippingItems key={id} name={item.product.title} price={item.amount} image={item.product.image} qty={item.quantity} />
                 ))
-              )}
-            
+              )}           
 
               <div className='flex justify-between mt-10'>
                 <p className='font-semibold text-gray-700'>Subtotal</p>
@@ -181,7 +162,6 @@ export default function Checkout(){
                 <p className='font-semibold text-xl text-gray-700'>Total</p>
                 <p className='font-semibold text-xl text-gray-700'>{total}</p>
               </div>
-
             </div>
           </div>
         </div>

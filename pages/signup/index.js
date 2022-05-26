@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Footer from '../../components/Footer'
 import { toast } from 'react-toastify'
+import { axiosWrapper } from '../../utils/axiosWrapper'
 
 const SignUp = () => {
 
@@ -24,7 +25,8 @@ const SignUp = () => {
         toast.error('All fields are required')    
     }else{
         try {
-            const res = await axios.post('http://api.thenazrana.in/register', {name, userName: username, email, password}, {headers: {'Content-Type': 'application/json'}})
+            const res = await axiosWrapper('/register', 'post',  {name, userName: username, email, password})
+            console.log(res.data)
             toast.error(res.data.msg)
             if(res.data.status === true){
                 toast.success(res.data.msg)
