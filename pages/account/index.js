@@ -104,7 +104,7 @@ const Account = () => {
             <input type='file' id='image-file' accept="image/*" className='hidden' onChange={handleProfileImageChange}/>
             <div className='flex'>
               <div className='w-full md:w-4/12 '>
-                <label for="name" className="block text-sm font-medium text-gray-700 mb-2 ml-0.5 mt-4">Profile Image</label>
+                <label htmlfor="name" className="block text-sm font-medium text-gray-700 mb-2 ml-0.5 mt-4">Profile Image</label>
                 <label htmlFor='image-file' className='cursor-pointer flex items-center border-2 border-dashed w-10/12 justify-center py-8'>
                   <BiImageAdd  className='text-6xl text-gray-400'/>
                 </label>
@@ -119,10 +119,10 @@ const Account = () => {
                 }
               </div>
             </div>
-            <label for="name"  className="block text-sm font-medium text-gray-700 mb-2 ml-0.5 mt-4">Name</label>
+            <label htmlfor="name"  className="block text-sm font-medium text-gray-700 mb-2 ml-0.5 mt-4">Name</label>
             <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} className="placeholder:text-gray-600 block py-3 px-4 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none mb-5" placeholder="Full Name"/>
             
-            <label for="name" className="block text-sm font-medium text-gray-700 mb-2 ml-0.5">Date Of Birth</label>
+            <label htmlfor="name" className="block text-sm font-medium text-gray-700 mb-2 ml-0.5">Date Of Birth</label>
             <DatePicker placeholderText={new Date().toISOString().split('T')[0]} selected={dob} onChange={handleDateChange} className="placeholder:text-gray-600 block py-3 px-4 rounded-md w-full text-sm text-gray-800 bg-transparent border border-gray-300 focus:outline-none mb-5" placeholder="Full Name"/>
             
             <button className="mt-6 w-full py-3 text-sm text-white bg-indigo-500 hover:bg-indigo-600" onClick={handleUpdateSubmit}>Update</button>
