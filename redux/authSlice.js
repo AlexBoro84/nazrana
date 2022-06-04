@@ -6,13 +6,22 @@ const authSlice = createSlice({
   initialState: {
     authenticated: false,
     name: null,
+    userId: null,
+    name: null,
+    userName: null,
+    email: null,
+    role: null,
     loading: false
   },
   reducers: {
-    authUser: (state, action) => {
-      state.products.push(action.payload);
-      state.quantity += 1;
-      state.total += action.payload.price * action.payload.quantity;
+    authUser: (state, {payload}) => {
+      state.authenticated = payload.authenticated
+      state.email = payload.email;
+      state.userId = payload.id;
+      state.userName = payload.userName;
+      state.role = payload.role;
+      state.name = payload.name;
+      state.image = payload.image;
     },
   },
 });
@@ -20,12 +29,12 @@ const authSlice = createSlice({
 export function checkAuth(){
   return async dispatch => {
     const res = await axiosWrapper('Auth', 'get')
-
-    console.log(res.data)
+    if(res.data){
+      dispatch(authUser(res.data))
+    }
   }
-
 }
 
-export const { addProduct, reset } = authSlice.actions;
+export const { authUser} = authSlice.actions;
 export default authSlice.reducer;
 

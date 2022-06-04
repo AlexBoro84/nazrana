@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import axios from 'axios'
 import { useRouter } from 'next/router'
 import Footer from '../../components/Footer'
 import { toast } from 'react-toastify'

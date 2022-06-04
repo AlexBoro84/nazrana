@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {useState} from 'react'
-import axios from 'axios'
 import Footer from '../../components/Footer'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -25,6 +24,7 @@ const Login = () => {
                 toast.error(res.data.msg)
             }
             if(res.data.status === true){
+                toast.success(res.data.msg)
                 router.push('/')
             }
         } catch (error) {
