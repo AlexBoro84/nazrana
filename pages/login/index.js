@@ -19,10 +19,6 @@ const Login = () => {
     }else{
         try {
             const res = await axiosWrapper('/login', 'post', {userName: username, password})
-            console.log(res.data)
-            if(res.data){
-                toast.error(res.data.msg)
-            }
             if(res.data.status === true){
                 toast.success(res.data.msg)
                 router.push('/')

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import {addCartItems} from '../redux/cartSlice'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
-import { toast } from 'react-toastify'
 
 
 const Product = ({id, series, name, price, image}) => {

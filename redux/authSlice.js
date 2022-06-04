@@ -28,7 +28,7 @@ const authSlice = createSlice({
 
 export function checkAuth(){
   return async dispatch => {
-    const res = await axiosWrapper('Auth', 'get')
+    const res = await axiosWrapper('/Auth', 'get')
     if(res.data){
       dispatch(authUser(res.data))
     }

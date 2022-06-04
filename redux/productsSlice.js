@@ -91,6 +91,6 @@ const getProductsRequest = async (query, nextPage) => {
     ],
     "page": nextPage ? nextPage : 0
 }
-  const res = await axiosWrapper('Search', 'post', data)
+  const res = await axiosWrapper('/Search', 'post', data)
   return res
 }

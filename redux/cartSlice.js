@@ -90,7 +90,7 @@ export function deleteCartItem(id) {
   return async dispatch => {
     try {
         dispatch(deleteFromCartLoading())
-        const res = await axiosWrapper(`Cart/Remove/${id}`, 'post', {})
+        const res = await axiosWrapper(`/Cart/Remove/${id}`, 'post', {})
         toast.success(res.data.msg);
         dispatch(deleteFromCart(id))
     } catch (error) {

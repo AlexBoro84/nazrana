@@ -14,7 +14,7 @@ export const axiosWrapper = async(endpoint, requestMethod, data, formdata) => {
     const res = await axios({
         method: requestMethod,
         url: endpoint,
-        baseURL: 'https://api.thenazrana.in/',
+        baseURL: 'https://api.thenazrana.in',
         data: data ? data : null,
         body: body,
         withCredentials: true

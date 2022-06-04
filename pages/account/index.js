@@ -31,8 +31,8 @@ const Account = () => {
     const getOrders = async () => {
       try {
         setLoading(true)
-        const orderRes = await axiosWrapper('Account/orders', 'get')
-        const accountRes = await axiosWrapper('Account', 'get')  
+        const orderRes = await axiosWrapper('/Account/orders', 'get')
+        const accountRes = await axiosWrapper('/Account', 'get')  
         if(orderRes.data){
           setOrders(orderRes.data)
         }

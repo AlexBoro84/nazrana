@@ -29,19 +29,6 @@ const Navbar = () => {
     })
   }
 
-  const removeCookie = async() => {
-    try {
-      const res = await axiosWrapper('signOut', 'get')
-      console.log(res.daat)
-      if(res.data){
-        router.push('/')
-      }
-    } catch (error) {
-      toast.error('Server Error')
-    }
-  }
-
-
 
   const MobileNavItems = () => {
     return(
