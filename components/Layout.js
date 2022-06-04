@@ -2,18 +2,19 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { checkAuth } from '../redux/authSlice';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useRouter} from 'next/router'
 
 const Layout = ({children}) => {
+
+  const router = useRouter()
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(checkAuth())  
-  },[])
-
-
+  },[router.pathname])
 
   return (
     <>

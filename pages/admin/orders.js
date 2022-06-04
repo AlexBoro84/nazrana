@@ -4,9 +4,9 @@ import SideBar from '../../components/SideBar'
 
 const orders = () => {
   return (
-    <div className='h-screen'>
+    <div>
       <AdminNav/>
-      <div className='flex'>
+      <div className='flex md:pb-0 mb-16'>
         <SideBar/>
         <div className='bg-[#f3f3fe] w-full rounded-xl px-4 md:px-10 lg:mr-8 py-4'>
           <h2 className='text-xl font-semibold text-gray-700'>Orders</h2> 

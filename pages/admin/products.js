@@ -26,7 +26,7 @@ const Admin = () => {
   return (
     <div>
       <AdminNav/>
-      <div className='flex'>
+      <div className='flex md:pb-0 mb-16'>
         <SideBar/>
         <div className='bg-[#f3f3fe] w-full rounded-xl lg:mr-8 px-4 md:px-10 py-4'>
           <h2 className='text-xl font-semibold text-gray-700'>Products</h2> 

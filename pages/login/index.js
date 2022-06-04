@@ -20,7 +20,6 @@ const Login = () => {
         try {
             const res = await axiosWrapper('/login', 'post', {userName: username, password})
             if(res.data.status === true){
-                toast.success(res.data.msg)
                 router.push('/')
             }
         } catch (error) {

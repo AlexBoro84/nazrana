@@ -27,7 +27,6 @@ const SignUp = () => {
             const res = await axiosWrapper('/register', 'post',  {name, userName: username, email, password})
             console.log(res.data)
             if(res.data.status === true){
-                toast.success(res.data.msg)
                 router.push('/login')
             }
         } catch (error) {
