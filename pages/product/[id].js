@@ -1,11 +1,23 @@
 import Navbar from '../../components/Navbar'
 import ButtonBlue from '../../components/buttons/ButtonBlue'
 import {BsShareFill, BsFillHeartFill} from 'react-icons/bs'
+import { useDispatch } from 'react-redux'
 import Footer from '../../components/Footer'
 import axios from 'axios'
+import {addCartItems} from '../../redux/cartSlice'
+import { useState } from 'react'
 
 const Product = ({product}) => {
 
+const dispatch = useDispatch()
+
+const [qty, setQty] = useState(1)
+
+  
+console.log(qty, product.id)
+const handleAddToCart = () => {
+    dispatch(addCartItems(product.id, qty))
+}
 
   return (
     <>
@@ -26,12 +38,18 @@ const Product = ({product}) => {
                         </p>
                     </div>
                     <div className='flex lg:flex-row md:flex-col flex-col lg:items-center my-6'>
-                        <select className="block bg-white lg:mr-6 mr-0 lg:mb-0 mb-6 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-500" >
-                            <option>Quantity 1</option>
-                            <option>Quantity 2</option>
-                            <option>Quantity 3</option>
+                        <select onChange={(e) => setQty(e.target.value)} className="block bg-white lg:mr-6 mr-0 lg:mb-0 mb-6 border border-gray-200 text-gray-700 py-3 px-2 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-500" >
+                            <option value='1'>Qty 1</option>
+                            <option value='2'>Qty 2</option>
+                            <option value='3'>Qty 3</option>
+                            <option value='4'>Qty 4</option>
+                            <option value='5'>Qty 5</option>
+                            <option value='6'>Qty 6</option>
+                            <option value='7'>Qty 7</option>
+                            <option value='8'>Qty 8</option>
+                            <option value='9'>Qty 9</option>
                         </select>
-                        <ButtonBlue text="Add to Bag"/>
+                        <ButtonBlue text="Add to Bag" onClick={handleAddToCart}/>
                     </div>
                     <div className='flex items-center'>
                         <div className='bg-[#e8f0f2] p-3 rounded-sm mr-4 cursor-pointer'>

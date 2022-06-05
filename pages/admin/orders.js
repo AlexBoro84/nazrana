@@ -6,11 +6,9 @@ import { axiosWrapper } from '../../utils/axiosWrapper'
 import {FiTrash} from 'react-icons/fi'
 import {FaRegEdit} from 'react-icons/fa'
 import {GoPrimitiveDot} from 'react-icons/go'
-import {useRouter} from 'next/router'
 
 
 const orders = () => {
-
 
   const [showProducts, setShowProducts] = useState(false)
   const [orders, setOrders] = useState(null)
@@ -26,7 +24,7 @@ const orders = () => {
     }
   }
 
-  useState(() => {
+  useEffect(() => {
     getOrders()
   },[])
 
@@ -97,7 +95,7 @@ const orders = () => {
                               <div className='flex md:w-6/12'>
                                 
                                 {order.status === 'completed' && <button className={`text-md text-[#4d52f8] font-semibold flex items-center w md:w-6/12 cursor-pointer md:mr-0 mr-6`} onClick={() => handleUpdateStatus(order.id)}><FaRegEdit/></button>}
-                                {/* {order.status === 'canceled' && <button className='text-md text-red-500 font-semibold md:w-6/12 flex items-center cursor-pointer' onClick={() => handleCancelOrder(order.id)}><FiTrash/></button>} */}
+                                {order.status === 'canceled' && <button className='text-md text-red-500 font-semibold md:w-6/12 flex items-center cursor-pointer' onClick={() => handleCancelOrder(order.id)}><FiTrash/></button>} 
                                <button className='text-md text-red-500 font-semibold md:w-6/12 flex items-center cursor-pointer' onClick={() => handleCancelOrder(order.id)}><FiTrash/></button>
                              
                               </div>
