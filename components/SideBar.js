@@ -10,8 +10,8 @@ const SideBar = () => {
   
 
   return (
-    <aside className="lg:w-60 md:w-14 md:h-full fixed bottom-0 md:sticky md:top-20 bg-white md:shadow-none shadow-2xl w-full">
-        <div className="p-2 lg:p-4 ">
+    <aside className="lg:w-60 md:w-14 fixed bottom-0 md:static bg-white md:shadow-none shadow-2xl w-full">
+        <div className="p-2 lg:p-4 sticky top-16 h-full">
             <ul className="md:space-y-2 md:mt-6 mt-0 md:flex-col flex justify-around">
                 <li>
                     <div className="flex items-center p-2 text-base text-gray-600 font-normal rounded-lg ">
@@ -37,10 +37,12 @@ const SideBar = () => {
                    
                 </li>
                 <li>
-                    <div href="#" className="flex items-center p-2 text-base font-normal text-gray-600 rounded-lg hover:bg-[#6569f4] hover:text-white">
-                        <AiOutlineLogout className="flex-shrink-0 w-6 h-5 transition duration-75"/>
-                        <span className="ml-3 hidden lg:block">Logout</span>
-                    </div>
+                    <Link href="/login">
+                        <a className='flex items-center p-2 text-base font-normal text-gray-600 rounded-lg hover:bg-[#6569f4] hover:text-white'>
+                            <AiOutlineLogout className="flex-shrink-0 w-6 h-5 transition duration-75"/>
+                            <span className="ml-3 hidden lg:block">Logout</span>
+                        </a>
+                    </Link>
                 </li>
             </ul>
         </div>

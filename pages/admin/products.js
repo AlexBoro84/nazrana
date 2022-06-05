@@ -5,6 +5,7 @@ import {axiosWrapper} from '../../utils/axiosWrapper'
 import {FiTrash} from 'react-icons/fi'
 import {FaRegEdit} from 'react-icons/fa'
 
+
 const Admin = () => {
 
   const [products, setProducts] = useState(null)
@@ -63,7 +64,7 @@ const Admin = () => {
                           <h4 className='md:text-sm text-xs text-gray-500 font-semibold md:w-2/12 w-full flex items-center'><span className='md:hidden block md:mr-0 mr-1'>Price: </span>{product.price}</h4>
                           <h4 className='md:text-sm text-xs text-gray-500 font-semibold md:w-2/12 w-full flex items-center'><span className='md:hidden block md:mr-0 mr-1'>Sold: </span>{product.sold}</h4>
                           <div className='flex md:justify-start md:w-4/12 justify-between w-full'>
-                            <h4 className='md:text-sm text-xs text-gray-500 font-semibold md:w-4/12 w-full  flex items-center'><span className='md:hidden block md:mr-0 mr-1'>Stock: </span>{product.stock}</h4>
+                            <h4 className='md:text-sm text-xs text-gray-500 font-semibold md:w-4/12 w-full flex items-center'><span className='md:hidden block md:mr-0 mr-1'>Stock: </span>{product.stock}</h4>
                             <div className='flex md:w-8/12'>
                               <div className='text-md text-[#4d52f8] font-semibold flex items-center w-full md:w-6/12 cursor-pointer md:mr-0 mr-2'><FaRegEdit/></div>
                               <div className='text-md text-red-500 font-semibold md:w-6/12 w-full flex items-center cursor-pointer'><FiTrash/></div>
