@@ -6,7 +6,7 @@ import {FiTrash} from 'react-icons/fi'
 import {FaRegEdit} from 'react-icons/fa'
 
 
-const Admin = () => {
+const Products = () => {
 
   const [products, setProducts] = useState(null)
 
@@ -82,4 +82,4 @@ const Admin = () => {
   )
 }
 
-export default Admin
+export default Products

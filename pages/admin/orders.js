@@ -8,7 +8,7 @@ import {FaRegEdit} from 'react-icons/fa'
 import {GoPrimitiveDot} from 'react-icons/go'
 
 
-const orders = () => {
+const Orders = () => {
 
   const [showProducts, setShowProducts] = useState(false)
   const [orders, setOrders] = useState(null)
@@ -127,4 +127,4 @@ const orders = () => {
   )
 }
 
-export default orders
+export default Orders
