@@ -45,11 +45,11 @@ export const {addProductsLoading, addProducts, addProductsFail, loadMoreProducts
 export default productsSlice.reducer;
 
 
-export function getSearchProducts(query, nextPage) {
+export function getSearchProducts(query, filter, nextPage, priceRange) {
   return async (dispatch) => {
     try {
         dispatch(addProductsLoading());
-        const res = await getProductsRequest(query, nextPage)
+        const res = await getProductsRequest(query, filter, nextPage, priceRange)
         dispatch(addProducts(res.data));
     } catch (error) {
       console.log(error)
@@ -59,11 +59,11 @@ export function getSearchProducts(query, nextPage) {
 }
 
 
-export function loadMoreSearchProducts(query, nextPage) {
+export function loadMoreSearchProducts(query, filter, nextPage, priceRange) {
   return async dispatch => {
     try {
       dispatch(addProductsLoading());
-      const res = await getProductsRequest(query, nextPage)
+      const res = await getProductsRequest(query, filter, nextPage, priceRange)
       dispatch(loadMoreProducts(res.data));
   } catch (error) {
     console.log(error)
@@ -73,23 +73,21 @@ export function loadMoreSearchProducts(query, nextPage) {
 }
 
 
-const getProductsRequest = async (query, nextPage) => {
+const getProductsRequest = async (query, sortBy, nextPage, priceRange) => {
+
+  console.log(sortBy)
+
   const data = {
     "query": query ? query : null,
     "category": "string",
-    "discountRanges": [
+    "priceRanges": priceRange !== undefined ? [
       {
-        "min": 0,
-        "max": 0
+        "min": priceRange.split('-')[0],
+        "max": priceRange.split('-')[1]
       }
-    ],
-    "priceRanges": [
-      {
-        "min": 0,
-        "max": 0
-      }
-    ],
-    "page": nextPage ? nextPage : 0
+    ] : null,
+    "page": nextPage ? nextPage : 0,
+    "sort": sortBy
 }
   const res = await axiosWrapper('/Search', 'post', data)
   return res

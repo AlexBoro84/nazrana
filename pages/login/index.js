@@ -1,14 +1,23 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import { useSelector } from 'react-redux'
 import Footer from '../../components/Footer'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { axiosWrapper } from '../../utils/axiosWrapper'
 
 const Login = () => {
-
+ 
  const router = useRouter()
+ const {authenticated} = useSelector((state) => state.auth)
+ 
+ useEffect(() => {
+    if(authenticated === true){
+        router.push('/')
+    }
+ },[authenticated])
+
  const [username, setUsername] = useState('')
  const [password, setPassword] = useState('')
 

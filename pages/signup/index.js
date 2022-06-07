@@ -15,6 +15,14 @@ const SignUp = () => {
  const [name, setName] = useState('')
  const [password, setPassword] = useState('')
 
+ const {authenticated} = useSelector((state) => state.auth)
+ 
+ useEffect(() => {
+    if(authenticated === true){
+        router.push('/')
+    }
+ },[authenticated])
+
  
 
  const handleSubmit = async (e) => {

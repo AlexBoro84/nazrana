@@ -13,28 +13,24 @@ const Products = () => {
   const {query} = router
   const dispatch = useDispatch()
 
-
-  const [filter, setFilter] = useState('')
   const [search, setSearch] = useState('')
-
 
   const {loading, products, total, nextPage, error, hasMore} = useSelector((state) => state.products)
 
   useEffect(() => {
-      dispatch(getSearchProducts(query.s))
+      dispatch(getSearchProducts(query.s, query.filter, null, query.priceRange))
   },[query])
 
 
-
   const handleShowMore = () => {
-    dispatch(loadMoreSearchProducts(query.s, nextPage))  
+    dispatch(loadMoreSearchProducts(query.s, query.filter, nextPage, query.priceRange))  
   } 
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     router.push({
       pathname: '/products',
-      query: search ? { s: search } : null
+      query: search ? { s: search, filter: "Latest" } : {filter: 'Latest'}
     })
   }
 
@@ -54,12 +50,18 @@ const Products = () => {
                 </div>
               </form>
             <div className='flex mt-4'>
-                <select id="countries" onChange={(e) => setFilter(e.target.value)} className=" w-40 border border-gray-300 text-gray-900 text-sm rounded-sm focus:outline-none bg-white block p-2" >
-                    <option defaultValue="" disabled hidden>Filter</option>
-                    <option value="min">Price: Low To High</option>
-                    <option value="max">Price: High To Low</option>
-                </select>
-              
+                <select value={query.filter} onChange={(e) => router.push({pathname: window.location.pathname, query: {filter: e.target.value}})} className=" w-40 border border-gray-300 cursor-pointer text-gray-900 text-sm rounded-sm focus:outline-none bg-white block p-2" >
+                    <option value="Latest">Latest</option>
+                    <option value="PriceLowToHigh">Price: Low To High</option>
+                    <option value="PriceHighToLow">Price: High To Low</option>
+                </select>   
+                <select value={query.priceRange} onChange={(e) => router.push({pathname: window.location.pathname, query: e.target.value !== 'any' ? {priceRange: e.target.value} : null})} className=" w-40 border ml-4 border-gray-300 cursor-pointer text-gray-900 text-sm rounded-sm focus:outline-none bg-white block p-2" >
+                    <option value="any">Price: Any Price</option>
+                    <option value="1000-5000">Price: 1000-5000</option>
+                    <option value="5000-10000">Price: 5000-10000</option>
+                    <option value="10000-15000">Price: 10000-15000</option>
+                    <option value="15000-20000">Price: 15000-20000</option>
+                </select>   
             </div>  
             <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 mt-10 md:gap-10 gap-4 mb-14'>
                 {products && products.map((product, i) => (

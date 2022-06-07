@@ -25,7 +25,7 @@ const Navbar = () => {
     e.preventDefault()
     router.push({
       pathname: '/products',
-      query: search ? { s: search } : null
+      query: search ? { s: search, filter: "Latest" } : {filter: 'Latest'}
     })
   }
 
