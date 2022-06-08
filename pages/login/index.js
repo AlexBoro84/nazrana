@@ -29,7 +29,13 @@ const Login = () => {
         try {
             const res = await axiosWrapper('/login', 'post', {userName: username, password})
             if(res.data.status === true){
-                router.push('/')
+                if(res.data.data.role === 'admin'){
+                    router.push('/admin/products')
+                }else{
+                    router.push('/')
+                }
+            }else{
+                toast.error(res.data.msg)
             }
         } catch (error) {
             toast.error('Server Error')    

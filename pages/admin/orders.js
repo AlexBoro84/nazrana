@@ -10,7 +10,7 @@ import {GoPrimitiveDot} from 'react-icons/go'
 
 const Orders = () => {
 
-  const [showProducts, setShowProducts] = useState(false)
+  const [showProducts, setShowProducts] = useState({show: false, id: null})
   const [orders, setOrders] = useState(null)
 
   const getOrders = async () => {
@@ -90,22 +90,20 @@ const Orders = () => {
                           <h4 className='md:text-sm text-xs text-gray-500 font-semibold md:w-3/12 w-full flex items-center'><span className='md:hidden block md:mr-0 mr-1'>Total: </span>{order.total}</h4>
                           <div className='flex md:justify-start md:w-6/12 justify-between w-full md:mt-0 mt-2'>
                               <div className='md:text-sm text-xs text-gray-500 font-semibold md:w-6/12 md:mr-0 mr-5'>
-                                  <button className='bg-[#6569f4] py-1.5 hover:bg-[#575cf4] text-xs font-semibold px-4 rounded-full text-white' onClick={() => setShowProducts(!showProducts)}>x {order.items.length}</button>
+                                  <button className='bg-[#6569f4] py-1.5 hover:bg-[#575cf4] text-xs font-semibold px-4 rounded-full text-white' onClick={() => setShowProducts({show: !showProducts.show, id: order.id })}>x {order.items.length}</button>
                               </div>
                               <div className='flex md:w-6/12'>
                                 
-                                {order.status === 'completed' && <button className={`text-md text-[#4d52f8] font-semibold flex items-center w md:w-6/12 cursor-pointer md:mr-0 mr-6`} onClick={() => handleUpdateStatus(order.id)}><FaRegEdit/></button>}
-                                {order.status === 'canceled' && <button className='text-md text-red-500 font-semibold md:w-6/12 flex items-center cursor-pointer' onClick={() => handleCancelOrder(order.id)}><FiTrash/></button>} 
-                               <button className='text-md text-red-500 font-semibold md:w-6/12 flex items-center cursor-pointer' onClick={() => handleCancelOrder(order.id)}><FiTrash/></button>
-                             
+                                {order.status !== 'Delivered' && <button className={`text-md text-[#4d52f8] font-semibold flex items-center w md:w-6/12 cursor-pointer md:mr-0 mr-6`} onClick={() => handleUpdateStatus(order.id)}><FaRegEdit/></button>}
+                                {order.status !== 'Cancelled' && <button className='text-md text-red-500 font-semibold md:w-6/12 flex items-center cursor-pointer' onClick={() => handleCancelOrder(order.id)}><FiTrash/></button>} 
                               </div>
                           </div>
                         </div>
                       </div>
 
                        <div className='bg-white px-4 border-t border-gray-100'>
-                         {showProducts && order.items.map(item => (
-                           <div key={item.id} className='flex py-4'>
+                         {showProducts.show && showProducts.id === order.id && order.items.map((item, id) => (
+                           <div key={id} className='flex py-4'>
                                 <div className='h-14 w-14'>
                                   <img src={item.product.image} className='w-full h-full object-contain'/>
                                 </div>
