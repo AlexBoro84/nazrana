@@ -14,7 +14,6 @@ const dispatch = useDispatch()
 const [qty, setQty] = useState(1)
 
   
-console.log(qty, product.id)
 const handleAddToCart = () => {
     dispatch(addCartItems(product.id, qty))
 }
