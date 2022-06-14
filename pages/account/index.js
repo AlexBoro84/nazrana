@@ -197,7 +197,7 @@ const Account = () => {
                             <h4 className='text-sm font-semibold text-gray-600 w-full md:w-2/12  md:mt-0 mt-1.5'>
                               <div className='flex items-center'>
                                 <span className='md:hidden mr-1'>Status: </span>
-                                <GoPrimitiveDot className='text-green-600 text-lg mr-1'/> 
+                                <GoPrimitiveDot className={`${order.status === 'Cancelled' ? 'text-red-500': 'text-green-600'}text-lg mr-1`}/> 
                                 {order.status}
                               </div>
                             </h4>
