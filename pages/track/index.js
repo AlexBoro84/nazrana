@@ -45,6 +45,7 @@ export default function Track(){
   }
 
 
+
   return (
     <>
       <div>
@@ -60,6 +61,11 @@ export default function Track(){
           
           {orderDetail && (
             <div className='mt-20'>
+              {orderDetail.status === 'Cancelled' && 
+                <div className='mb-10'>
+                  <p className='text-xl font-semibold'>Status: <span className='text-red-400'>Cancelled</span></p>
+                </div>
+              }
               <div className='flex md:flex-row flex-col'>
                 <div className='md:w-8/12 w-full'>
                     {orderDetail.items.map((item, i) => (
@@ -91,72 +97,60 @@ export default function Track(){
                       </div>
                     </div>  
                 </div>
-                <div className='md:w-4/12 w-full md:mt-0 mt-14'>
-                  <div className='flex'>
-                    <div className='flex flex-col items-center'>
-                      <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[0].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
-                        <div className='h-2 w-2 rounded-full bg-white'></div>
+                {orderDetail.status !== 'Cancelled' && (
+                  <div className='md:w-4/12 w-full md:mt-0 mt-14'>
+                    <div className='flex'>
+                      <div className='flex flex-col items-center'>
+                        <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[0].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
+                          <div className='h-2 w-2 rounded-full bg-white'></div>
+                        </div>
+                        <div className={`h-20 w-0.5 ${orderDetail.events[0].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
                       </div>
-                      <div className={`h-20 w-0.5 ${orderDetail.events[0].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
-                    </div>
-                    <div className='ml-4'>
-                      <p className='text-gray-600 font-semibold text-sm'>Ordered</p>
-                      <p className='text-xs text-gray-400'>{orderDetail.events[0].date.split('.')[0]}</p>
-                    </div>
-                  </div>
-
-                  <div className='flex'>
-                    <div className='flex flex-col items-center'>
-                      <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[1].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
-                        <div className='h-2 w-2 rounded-full bg-white'></div>
-                      </div>
-                      <div className={`h-20 w-0.5 ${orderDetail.events[1].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
-                    </div>
-                    <div className='ml-4'>
-                      <p className='text-gray-600 text-sm font-semibold'>Shipped</p>
-                      <p className='text-xs text-gray-400'>{orderDetail.events[1].date && orderDetail.events[1].date.split('.')[0]}</p>
-                    </div>
-                  </div>
-
-                  <div className='flex'>
-                    <div className='flex flex-col items-center'>
-                      <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[2].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
-                        <div className='h-2 w-2 rounded-full bg-white'></div>
-                      </div>
-                      <div className={`h-20 w-0.5 ${orderDetail.events[2].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
-                    </div>
-                    <div className='ml-4'>
-                      <p className='text-gray-600 text-sm font-semibold'>In Transit</p>
-                      <p className='text-xs text-gray-400'>{orderDetail.events[2].date && orderDetail.events[2].date.split('.')[0]}</p>
-                    </div>
-                  </div>
-
-                  <div className='flex'>
-                    <div className='flex flex-col items-center'>
-                      <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[3].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
-                        <div className='h-2 w-2 rounded-full bg-white'></div>
-                      </div>
-                      <div className={`h-20 w-0.5 ${orderDetail.events[3].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
-                    </div>
-                    <div className='ml-4'>
-                      <p className='text-gray-600 text-sm font-semibold'>Delivered</p>
-                      <p className='text-xs text-gray-400'>{orderDetail.events[3].date && orderDetail.events[3].date.split('.')[0]}</p>
-                    </div>
-                  </div>
-
-                  <div className='flex'>
-                    <div className='flex flex-col items-center'>
-                      <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[3].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
-                        <div className='h-2 w-2 rounded-full bg-white'></div>
+                      <div className='ml-4'>
+                        <p className='text-gray-600 font-semibold text-sm'>Ordered</p>
+                        <p className='text-xs text-gray-400'>{orderDetail.events[0].date.split('.')[0]}</p>
                       </div>
                     </div>
-                    <div className='ml-4'>
-                      <p className='text-gray-600 text-sm font-semibold'>Completed</p>
-                      <p className='text-xs text-gray-400'>{orderDetail.events[4].date && orderDetail.events[4].date.split('.')[0]}</p>
+
+                    <div className='flex'>
+                      <div className='flex flex-col items-center'>
+                        <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[1].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
+                          <div className='h-2 w-2 rounded-full bg-white'></div>
+                        </div>
+                        <div className={`h-20 w-0.5 ${orderDetail.events[1].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
+                      </div>
+                      <div className='ml-4'>
+                        <p className='text-gray-600 text-sm font-semibold'>Shipped</p>
+                        <p className='text-xs text-gray-400'>{orderDetail.events[1].date && orderDetail.events[1].date.split('.')[0]}</p>
+                      </div>
+                    </div>
+
+                    <div className='flex'>
+                      <div className='flex flex-col items-center'>
+                        <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[2].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
+                          <div className='h-2 w-2 rounded-full bg-white'></div>
+                        </div>
+                        <div className={`h-20 w-0.5 ${orderDetail.events[2].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] '}`}></div>
+                      </div>
+                      <div className='ml-4'>
+                        <p className='text-gray-600 text-sm font-semibold'>In Transit</p>
+                        <p className='text-xs text-gray-400'>{orderDetail.events[2].date && orderDetail.events[2].date.split('.')[0]}</p>
+                      </div>
+                    </div>
+
+                    <div className='flex'>
+                      <div className='flex flex-col items-center'>
+                        <div className={`h-7 w-7 relative rounded-full ${orderDetail.events[3].completed === true ? 'bg-[#6569f4]' : 'bg-[#9ea1fa] ' } flex items-center justify-center`}>
+                          <div className='h-2 w-2 rounded-full bg-white'></div>
+                        </div>
+                      </div>
+                      <div className='ml-4'>
+                        <p className='text-gray-600 text-sm font-semibold'>Delivered</p>
+                        <p className='text-xs text-gray-400'>{orderDetail.events[3].date && orderDetail.events[3].date.split('.')[0]}</p>
+                      </div>
                     </div>
                   </div>
-
-                </div>
+                )}
               </div>
             </div>
 

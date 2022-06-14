@@ -208,7 +208,7 @@ const Account = () => {
                       ))}
                     </>
                   ): (
-                    <p className='text-center text-gray-500'>No orders available</p>
+                    <p className='text-center text-gray-500 bg-white px-6'>No orders available</p>
                   )}
             </div>
           </div>

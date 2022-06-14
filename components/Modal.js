@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import ReactDOM from "react-dom";
 import {GrFormClose} from 'react-icons/gr'
+
 const Modal = ({show, onClose, children}) => {
 
     const [isBrowser, setIsBrowser] = useState(false);

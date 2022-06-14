@@ -24,11 +24,10 @@ const Cart = () => {
   }
 
   const getSubtotal = (cartItems) => {
-    if(Object.entries(cartItems).length === 0) return 0
-    let total = 0
-    Object.entries(cartItems).map((item) => {
-      total += (item[1].quantity * item[1].product.price)
-    })
+   let total = 0
+   cartItems.map(item => {
+     total += item.product.price * item.quantity
+   })
     return `₹ ${total}`
   }
 

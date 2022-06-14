@@ -52,7 +52,6 @@ export function getSearchProducts(query, filter, nextPage, priceRange) {
         const res = await getProductsRequest(query, filter, nextPage, priceRange)
         dispatch(addProducts(res.data));
     } catch (error) {
-      console.log(error)
       dispatch(addProductsFail())
     }
   }
@@ -66,7 +65,6 @@ export function loadMoreSearchProducts(query, filter, nextPage, priceRange) {
       const res = await getProductsRequest(query, filter, nextPage, priceRange)
       dispatch(loadMoreProducts(res.data));
   } catch (error) {
-    console.log(error)
     dispatch(addProductsFail())
   }
   }
@@ -75,7 +73,6 @@ export function loadMoreSearchProducts(query, filter, nextPage, priceRange) {
 
 const getProductsRequest = async (query, sortBy, nextPage, priceRange) => {
 
-  console.log(sortBy)
 
   const data = {
     "query": query ? query : null,

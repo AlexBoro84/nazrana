@@ -34,7 +34,6 @@ const SignUp = () => {
     }else{
         try {
             const res = await axiosWrapper('/register', 'post',  {name, userName: username, email, password})
-            console.log(res.data)
             if(res.data.status === true){
                 router.push('/login')
             }

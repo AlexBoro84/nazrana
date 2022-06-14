@@ -1,11 +1,14 @@
+import { useRouter } from 'next/router'
 import React, { useEffect, useState} from 'react'
 import {IoCloseOutline} from 'react-icons/io5'
 import { useDispatch} from 'react-redux'
 import {deleteCartItem, addCartItems } from '../redux/cartSlice'
 
 
+
 const CartItems = ({name, price, image, id, productId, quantity}) => {
-  
+
+  const router = useRouter()
   const dispatch = useDispatch()
 
   const [qty, setQty] = useState(quantity)
@@ -14,15 +17,17 @@ const CartItems = ({name, price, image, id, productId, quantity}) => {
     setQty(value)
     if(value <= 0 || value >= 10){
         dispatch(addCartItems(productId, 1))
+        router.push(`/cart`)
+
     }else{
         dispatch(addCartItems(productId, parseInt(value)))
+        router.push(`/cart`)
     }
   }
 
   const handleItemRemove = () => {
     dispatch(deleteCartItem(id))   
   }
-
 
   return (
    <>
@@ -50,7 +55,7 @@ const CartItems = ({name, price, image, id, productId, quantity}) => {
                         <option value="8">Qty: 8</option>
                         <option value="9">Qty: 9</option>
                     </select>
-                    <h4>Total: ₹2000</h4>
+                    <h4>Total: {price * qty}</h4>
                 </div>         
             </div>
        </div>

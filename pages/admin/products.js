@@ -2,13 +2,15 @@ import React, {useState, useEffect} from 'react'
 import AdminNav from '../../components/AdminNav'
 import SideBar from '../../components/SideBar'
 import {axiosWrapper} from '../../utils/axiosWrapper'
-import {FiTrash} from 'react-icons/fi'
 import {FaRegEdit} from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 
 const Products = () => {
 
   const [products, setProducts] = useState(null)
+  const [productStock, setProductStock] = useState({id: null, stock: 0})
 
   const getProducts = async () => {
     try {
@@ -19,6 +21,17 @@ const Products = () => {
     } catch (error) {
     }
   }
+
+  const updateQty = async() => {
+    const res = await axios.post(`https://api.thenazrana.in/Admin/products/${productStock.id}`, {stock: productStock.stock}, {headers: {'Content-Type': 'multipart/form-data'}})
+    if(res.data.status === true){
+      toast.success(res.data.msg)
+      getProducts()
+    }else{
+      toast.error(res.data.msg)
+    }
+  }
+
 
   useState(() => {
     getProducts()
@@ -42,8 +55,7 @@ const Products = () => {
                   <div className='w-4/12 flex'>
                     <h4 className='md:text-sm text-xs text-gray-500 font-semibold w-4/12'>Stock</h4>
                     <div className='w-8/12 flex'>
-                      <h4 className='md:text-sm text-xs text-gray-500 font-semibold w-6/12'>Update</h4>
-                      <h4 className='md:text-sm text-xs text-gray-500 font-semibold w-6/12'>Delete</h4>
+                      <h4 className='md:text-sm text-xs text-gray-500 font-semibold w-full'>Update Qty</h4>
                     </div>
                   </div>
                 </div>
@@ -66,8 +78,10 @@ const Products = () => {
                           <div className='flex md:justify-start md:w-4/12 justify-between w-full'>
                             <h4 className='md:text-sm text-xs text-gray-500 font-semibold md:w-4/12 w-full flex items-center'><span className='md:hidden block md:mr-0 mr-1'>Stock: </span>{product.stock}</h4>
                             <div className='flex md:w-8/12'>
-                              <div className='text-md text-[#4d52f8] font-semibold flex items-center w-full md:w-6/12 cursor-pointer md:mr-0 mr-2'><FaRegEdit/></div>
-                              <div className='text-md text-red-500 font-semibold md:w-6/12 w-full flex items-center cursor-pointer'><FiTrash/></div>
+                              <div className='text-md flex items-center w-full cursor-pointer md:mr-0 mr-2'>
+                                <input type='number' value={productStock.id === product.id ? productStock.stock : 0} className='border border-[#7276fb] rounded-full w-14 mr-4 px-4 focus:outline-none py-1 text-gray-600 text-xs' onChange={(e) => setProductStock({id:product.id, stock: e.target.value})}/>
+                                <FaRegEdit className='text-[#4d52f8] font-semibold' onClick={updateQty}/>
+                              </div>
                             </div>
                           </div>
                         </div>
