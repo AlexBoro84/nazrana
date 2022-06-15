@@ -1,7 +1,8 @@
 import Footer from "../../components/Footer";
 import Link from 'next/link'
 import {IoMdArrowBack} from 'react-icons/io'
-import { useEffect, useState, useSelector } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from 'react-redux'
 import {useRouter} from 'next/router'
 import { axiosWrapper } from "../../utils/axiosWrapper";
 import { toast } from "react-toastify";
