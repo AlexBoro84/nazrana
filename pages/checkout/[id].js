@@ -1,7 +1,7 @@
 import Footer from "../../components/Footer";
 import Link from 'next/link'
 import {IoMdArrowBack} from 'react-icons/io'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSelector } from "react";
 import {useRouter} from 'next/router'
 import { axiosWrapper } from "../../utils/axiosWrapper";
 import { toast } from "react-toastify";
@@ -24,6 +24,7 @@ const loadScript = () => {
 
 export default function Checkout(){
   const router = useRouter()
+  const {authenticated} = useSelector((state) => state.auth)
 
   const [items, setItems] = useState(null)
   const [subTotal, setSubTotal] = useState(0)
@@ -99,7 +100,11 @@ export default function Checkout(){
   }
 
   useEffect(() => {
-    getOrder()
+    if(authenticated === false){
+      router.push('/login')
+    }else{
+      getOrder()
+    }
   }, [router.query.id])
 
   const handlePayment = (e) => {
