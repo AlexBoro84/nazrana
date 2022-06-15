@@ -115,7 +115,7 @@ const Orders = () => {
                               </div>
                               <div className='flex md:w-6/12  relative'>    
                                 {
-                                  order.status !== 'Cancelled' && order.status !== 'Completed' && (
+                                  order.status !== 'Cancelled' && (
                                      <button className={`text-md text-[#4d52f8] font-semibold flex items-center w md:w-6/12 cursor-pointer md:mr-0 mr-6`} onClick={() => (handleOrderUpdateStatus(order.id), setShowProducts({show: false, id: null }))}><FaRegEdit/></button>                                
                                    )
                                 }
